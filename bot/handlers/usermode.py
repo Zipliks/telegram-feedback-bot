@@ -67,11 +67,11 @@ async def text_message(message: Message, bot: Bot, l10n: FluentLocalization):
     else:
         await bot.send_message(
             CHAT_ID,
-            message.md_text + f"\n\nName: {message.from_user.full_name}\n"
-                              f"Username: @{message.from_user.username}\n"
-                              f"ID: `{message.from_user.id}`\n\n"
-                              f"\#id{message.from_user.id}",
-            parse_mode=ParseMode.MARKDOWN_V2
+            message.html_text + f"\n\nName: {message.from_user.full_name}\n"
+                                f"Username: @{message.from_user.username}\n"
+                                f"ID: {message.from_user.id}\n\n"
+                                f"#id{message.from_user.id}",
+            parse_mode=ParseMode.HTML
         )
         create_task(_send_expiring_notification(message, l10n))
 
@@ -96,9 +96,9 @@ async def supported_media(message: Message, l10n: FluentLocalization):
             CHAT_ID,
             caption=((message.caption or "") + f"\n\nName: {message.from_user.full_name}\n"
                                                f"Username: @{message.from_user.username}\n"
-                                               f"ID: `{message.from_user.id}`\n\n"
-                                               f"\#id{message.from_user.id}"),
-            parse_mode=ParseMode.MARKDOWN_V2
+                                               f"ID: {message.from_user.id}\n\n"
+                                               f"#id{message.from_user.id}"),
+            parse_mode=ParseMode.HTML
         )
         create_task(_send_expiring_notification(message, l10n))
 
