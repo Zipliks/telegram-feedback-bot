@@ -2,10 +2,10 @@ from aiogram import Router, F
 from aiogram.types import ContentType, Message
 from fluent.runtime import FluentLocalization
 
-from bot.config_reader import config
+from bot.config_reader import CHAT_ID
 
 router = Router()
-router.message.filter(F.chat.id == config.admin_chat_id)
+router.message.filter(F.chat.id == CHAT_ID)
 
 
 @router.message(~F.reply_to_message)

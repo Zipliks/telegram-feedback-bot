@@ -1,7 +1,7 @@
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeChat
 
-from bot.config_reader import config
+from bot.config_reader import CHAT_ID
 
 
 async def set_bot_commands(bot: Bot):
@@ -19,5 +19,5 @@ async def set_bot_commands(bot: Bot):
     ]
     await bot.set_my_commands(
         admin_commands,
-        scope=BotCommandScopeChat(chat_id=config.admin_chat_id)
+        scope=BotCommandScopeChat(chat_id=CHAT_ID)
     )

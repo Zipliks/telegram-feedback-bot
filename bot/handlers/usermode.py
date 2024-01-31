@@ -7,7 +7,7 @@ from aiogram.types import Message
 from fluent.runtime import FluentLocalization
 
 from bot.blocklists import banned, shadowbanned
-from bot.config_reader import config
+from bot.config_reader import CHAT_ID, REMOVE_SENT_CONFIRMATION
 from bot.filters import SupportedMediaFilter
 
 router = Router()

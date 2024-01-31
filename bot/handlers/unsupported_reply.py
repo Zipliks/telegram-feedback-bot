@@ -2,12 +2,12 @@ from aiogram import Router, F
 from aiogram.types import Message
 from fluent.runtime import FluentLocalization
 
-from bot.config_reader import config
+from bot.config_reader import CHAT_ID
 
 router = Router()
 
 
-@router.message(F.reply_to_message, F.chat.id == config.admin_chat_id, F.poll)
+@router.message(F.reply_to_message, F.chat.id == CHAT_ID, F.poll)
 async def unsupported_admin_reply_types(message: Message, l10n: FluentLocalization):
     """
     Хэндлер на неподдерживаемые типы сообщений, т.е. те, которые не имеют смысла
