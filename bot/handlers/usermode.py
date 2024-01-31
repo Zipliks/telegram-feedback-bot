@@ -1,6 +1,7 @@
 from asyncio import create_task, sleep
 
 from aiogram import Router, F, Bot
+from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.types import ContentType
 from aiogram.types import Message
@@ -21,7 +22,7 @@ async def _send_expiring_notification(message: Message, l10n: FluentLocalization
     :param l10n: объект локализации
     """
     msg = await message.reply(l10n.format_value("sent-confirmation"))
-    if config.remove_sent_confirmation:
+    if REMOVE_SENT_CONFIRMATION:
         await sleep(5.0)
         await msg.delete()
 
@@ -65,8 +66,12 @@ async def text_message(message: Message, bot: Bot, l10n: FluentLocalization):
         return
     else:
         await bot.send_message(
-            config.admin_chat_id,
-            message.html_text + f"\n\n#id{message.from_user.id}", parse_mode="HTML"
+            CHAT_ID,
+            message.md_text + f"\n\nName: {message.from_user.full_name}\n"
+                              f"Username: @{message.from_user.username}\n"
+                              f"ID: `{message.from_user.id}`\n\n"
+                              f"#id{message.from_user.id}",
+            parse_mode=ParseMode.MARKDOWN_V2
         )
         create_task(_send_expiring_notification(message, l10n))
 
@@ -88,9 +93,12 @@ async def supported_media(message: Message, l10n: FluentLocalization):
         return
     else:
         await message.copy_to(
-            config.admin_chat_id,
-            caption=((message.caption or "") + f"\n\n#id{message.from_user.id}"),
-            parse_mode="HTML"
+            CHAT_ID,
+            caption=((message.caption or "") + f"\n\nName: {message.from_user.full_name}\n"
+                                               f"Username: @{message.from_user.username}\n"
+                                               f"ID: `{message.from_user.id}`\n\n"
+                                               f"#id{message.from_user.id}"),
+            parse_mode=ParseMode.MARKDOWN_V2
         )
         create_task(_send_expiring_notification(message, l10n))
 
