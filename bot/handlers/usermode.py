@@ -70,7 +70,7 @@ async def text_message(message: Message, bot: Bot, l10n: FluentLocalization):
             message.md_text + f"\n\nName: {message.from_user.full_name}\n"
                               f"Username: @{message.from_user.username}\n"
                               f"ID: `{message.from_user.id}`\n\n"
-                              f"#id{message.from_user.id}",
+                              f"\#id{message.from_user.id}",
             parse_mode=ParseMode.MARKDOWN_V2
         )
         create_task(_send_expiring_notification(message, l10n))
@@ -97,7 +97,7 @@ async def supported_media(message: Message, l10n: FluentLocalization):
             caption=((message.caption or "") + f"\n\nName: {message.from_user.full_name}\n"
                                                f"Username: @{message.from_user.username}\n"
                                                f"ID: `{message.from_user.id}`\n\n"
-                                               f"#id{message.from_user.id}"),
+                                               f"\#id{message.from_user.id}"),
             parse_mode=ParseMode.MARKDOWN_V2
         )
         create_task(_send_expiring_notification(message, l10n))
